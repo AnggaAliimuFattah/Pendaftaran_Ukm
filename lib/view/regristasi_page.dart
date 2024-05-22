@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:restaurant_bucket_list/screens/home_restaurant_list.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pendaftaran_ukm/controller/auth_controller.dart';
+import 'package:pendaftaran_ukm/view/login_page.dart';
 
 
 
@@ -18,30 +20,11 @@ class _RegristasiPageState extends State<RegristasiPage> {
    final formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final AuthController _authController = AuthController();
+  bool isLoading = false;
 
   //late SharedPreferences logindata;
   late bool newUser;
-
-    @override
-  // void initState() {
-  //   super.initState();
-  //   checkLogin();
-  // }
-
-  // void checkLogin() async {
-  //   logindata = await SharedPreferences.getInstance();
-  //   newUser = logindata.getBool('login') ?? true;
-
-  //   if (newUser == false) {
-  //     Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => const RestaurantListHome(),
-  //         ),
-  //         (route) => false);
-  //   }
-  // }
-
 @override
   void dispose() {
     _nameController.dispose();
@@ -160,62 +143,38 @@ class _RegristasiPageState extends State<RegristasiPage> {
                 child: ElevatedButton(
                   key: Key("Submit Login Button"),
                   // perubahan dsisni
-                 onPressed: () {
-                // final isValidForm = formKey.currentState!.validate();
-                //       if (isValidForm) {
-                //                 String username = _nameController.text;
-                //                 String password = _passwordController.text;
-
-                //                 if (username == 'admin' &&
-                //                     password == 'admin') {
-                //                   logindata.setBool('login', false);
-                //                   logindata.setString('username', username);
-
-                //                   showDialog(
-                //                     context: context,
-                //                     builder: (context) {
-                //                       return AlertDialog(
-                //                         title: Text('Login Successful'),
-                //                         content: Text('Anda berhasil login'),
-                //                         actions: [
-                //                           TextButton(
-                //                             onPressed: () {
-                //                               Navigator.pushAndRemoveUntil(
-                //                                 context,
-                //                                 MaterialPageRoute(
-                //                                   builder: (context) =>
-                //                                     //  const RestaurantListHome(),
-                //                                 ),
-                //                                 (route) => false,
-                //                               );
-                //                             },
-                //                             child: Text('OK'),
-                //                           ),
-                //                         ],
-                //                       );
-                //                     },
-                //                   );
-                //                 } else {
-                //                   showDialog(
-                //                     context: context,
-                //                     builder: (context) {
-                //                       return AlertDialog(
-                //                         title: Text('Login Failed'),
-                //                         content: Text(
-                //                             'Username atau password Anda salah'),
-                //                         actions: [
-                //                           TextButton(
-                //                             onPressed: () {
-                //                               Navigator.of(context).pop();
-                //                             },
-                //                             child: Text('OK'),
-                //                           ),
-                //                         ],
-                //                       );
-                //                     },
-                //                   );
-                //                 }
-                //               }
+                 onPressed: isLoading
+                                ? null
+                                : () async {
+                                    if (formKey.currentState?.validate() ?? false) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      try {
+                                        await _authController.registerWithEmailAndPassword(
+                                          email: _nameController.text,
+                                          password: _passwordController.text,
+                                        );
+                                        // Navigate to home screen on successful registration
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Registration successful'),
+                                          ),
+                                        );
+                                      } catch (e) {
+                                        // Handle error
+                                        print('Error: $e');
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Registration failed: $e'),
+                                          ),
+                                        );
+                                      } finally {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                      }
+                                    }
                             },
                     style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent, // Background color
@@ -225,33 +184,41 @@ class _RegristasiPageState extends State<RegristasiPage> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),          
-                      child: Text('DAFTAR',style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white
+                      child: isLoading
+                                ? CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
+                                  )
+                                : Text(
+                                    'DAFTAR',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
                     ),),
                     ),
                   ),
                   ),
-                  //  SizedBox(height: 20,),
-                  //    Row(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     Text(
-                  //       'Don\'t have an account?',
-                  //       style: TextStyle(color: Colors.grey),
-                  //     ),
-                  //     TextButton(
-                  //       onPressed: () {
-                  //         // Navigator.push(
-                  //         //   context,
-                  //         //   MaterialPageRoute(builder: (context) => const RegisterPage()),
-                  //         // );
-                  //       },
-                  //       child: Text('Register'), // Teks di dalam tombol
-                  //     ),
-                  //   ],
-                  // ),
+                   SizedBox(height: 20,),
+                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Already have an account?',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const LoginPage()),
+                          );
+                        },
+                        child: Text('Login'), // Teks di dalam tombol
+                      ),
+                    ],
+                  ),
                   SizedBox(height: 150),  // Space between buttons and icons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

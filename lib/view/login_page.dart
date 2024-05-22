@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pendaftaran_ukm/view/home_list.dart';
 //import 'package:restaurant_bucket_list/screens/home_restaurant_list.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pendaftaran_ukm/view/regristasi_page.dart';
-
+import 'package:pendaftaran_ukm/controller/auth_controller.dart';
 
 
 
@@ -19,29 +20,10 @@ class _LoginPageState extends State<LoginPage> {
    final formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
-
+  final AuthController _authController = AuthController();
+  bool isLoading = false;
   //late SharedPreferences logindata;
   late bool newUser;
-
-    @override
-  // void initState() {
-  //   super.initState();
-  //   checkLogin();
-  // }
-
-  // void checkLogin() async {
-  //   logindata = await SharedPreferences.getInstance();
-  //   newUser = logindata.getBool('login') ?? true;
-
-  //   if (newUser == false) {
-  //     Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => const RestaurantListHome(),
-  //         ),
-  //         (route) => false);
-  //   }
-  // }
 
 @override
   void dispose() {
@@ -161,62 +143,39 @@ class _LoginPageState extends State<LoginPage> {
                 child: ElevatedButton(
                   key: Key("Submit Login Button"),
                   // perubahan dsisni
-                 onPressed: () {
-                // final isValidForm = formKey.currentState!.validate();
-                //       if (isValidForm) {
-                //                 String username = _nameController.text;
-                //                 String password = _passwordController.text;
-
-                //                 if (username == 'admin' &&
-                //                     password == 'admin') {
-                //                   logindata.setBool('login', false);
-                //                   logindata.setString('username', username);
-
-                //                   showDialog(
-                //                     context: context,
-                //                     builder: (context) {
-                //                       return AlertDialog(
-                //                         title: Text('Login Successful'),
-                //                         content: Text('Anda berhasil login'),
-                //                         actions: [
-                //                           TextButton(
-                //                             onPressed: () {
-                //                               Navigator.pushAndRemoveUntil(
-                //                                 context,
-                //                                 MaterialPageRoute(
-                //                                   builder: (context) =>
-                //                                     //  const RestaurantListHome(),
-                //                                 ),
-                //                                 (route) => false,
-                //                               );
-                //                             },
-                //                             child: Text('OK'),
-                //                           ),
-                //                         ],
-                //                       );
-                //                     },
-                //                   );
-                //                 } else {
-                //                   showDialog(
-                //                     context: context,
-                //                     builder: (context) {
-                //                       return AlertDialog(
-                //                         title: Text('Login Failed'),
-                //                         content: Text(
-                //                             'Username atau password Anda salah'),
-                //                         actions: [
-                //                           TextButton(
-                //                             onPressed: () {
-                //                               Navigator.of(context).pop();
-                //                             },
-                //                             child: Text('OK'),
-                //                           ),
-                //                         ],
-                //                       );
-                //                     },
-                //                   );
-                //                 }
-                //               }
+                 onPressed:isLoading
+                                ? null
+                                : () async {
+                                    if (formKey.currentState?.validate() ?? false) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      try {
+                                        await _authController.signInWithEmailAndPassword(
+                                          email: _nameController.text,
+                                          password: _passwordController.text,
+                                        );
+                                        // Navigate to home screen on successful login
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeList(),
+                                          ),
+                                        );
+                                      } catch (e) {
+                                        // Handle error
+                                        print('Error: $e');
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Login failed: $e'),
+                                          ),
+                                        );
+                                      } finally {
+                                        setState(() {
+                                          isLoading = false;
+                                        });
+                                      }
+                                    }
                             },
                     style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent, // Background color
@@ -226,10 +185,18 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),          
-                      child: Text('LOGIN',style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white
+                      child: isLoading
+                                ? CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
+                                  )
+                                : Text(
+                                    'LOGIN',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
                     ),),
                     ),
                   ),

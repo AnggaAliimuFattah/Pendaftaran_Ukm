@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "283629135466",
+    "project_id": "pendaftaranukm-351f0",
+    "storage_bucket": "pendaftaranukm-351f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283629135466:android:9ae8fedd6ea800c6dd8c13",
+        "android_client_info": {
+          "package_name": "com.example.pendaftaran_ukm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBoK0QCoYG4lNj31zAJbeU-0bnuL7O1xk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

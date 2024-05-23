@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pendaftaran_ukm/controller/ukm_controller.dart';
+import 'package:pendaftaran_ukm/view/detail_page.dart';
 import 'package:pendaftaran_ukm/view/login_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 class HomeList extends StatefulWidget {
@@ -84,7 +85,10 @@ class _HomeListState extends State<HomeList> {
                         final ukm = ukmController.daftarUKM[index];
                         return GestureDetector(
                           onTap: () {
-                            //Get.to(() => DetailPage(ukm: ukm)); // Assuming you have a DetailPage
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => DetailPage(ukm: ukm)),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(

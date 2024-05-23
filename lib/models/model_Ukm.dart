@@ -1,5 +1,6 @@
 class UKMPendaftaran {
   String imageAsset;
+  String imageSvg;
   String title;
   String category;
   String description;
@@ -8,6 +9,7 @@ class UKMPendaftaran {
 
   UKMPendaftaran({
     required this.imageAsset,
+    required this.imageSvg,
     required this.title,
     required this.category,
     required this.description,

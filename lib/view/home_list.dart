@@ -151,12 +151,12 @@ class _HomeListState extends State<HomeList> {
         ),
       ),
        bottomNavigationBar: GNav(
-        backgroundColor: Color.fromARGB(255, 157, 165, 190),
-        gap: 6,
+        backgroundColor: Color(0xff0B5EBF),
+        gap: 4,
         padding: EdgeInsets.all(17),
         color: Colors.white,
-        activeColor: Colors.white,
-        tabBackgroundColor: Color.fromARGB(255, 192, 187, 187),
+        activeColor:  Colors.black,
+        tabBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
         tabs: const [
           GButton(
             key: Key('HomeNavButton'),

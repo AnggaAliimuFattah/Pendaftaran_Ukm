@@ -79,14 +79,13 @@ class DetailPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      SvgPicture.asset(
-                        ukm.imageSvg,
-                        width: 100, // Atur lebar gambar sesuai kebutuhan
-                        height: 100,
-                        color: Color( 0xff0B5EBF), // Atur tinggi gambar sesuai kebutuhan
-                      ),
+                      // SvgPicture.asset(
+                      //   ukm.imageSvg,
+                      //   width: 200, // Atur lebar gambar sesuai kebutuhan
+                      //   height: 200,
+                      // ),
 
-                      const SizedBox(height: 12),
+                      // const SizedBox(height: 12),
                       Text(
                         ukm.title,
                         style: GoogleFonts.montserrat(

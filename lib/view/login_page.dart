@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pendaftaran_ukm/view/home_list.dart';
 //import 'package:restaurant_bucket_list/screens/home_restaurant_list.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -64,11 +65,11 @@ class _LoginPageState extends State<LoginPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 70),
-          Image.asset(
-            "assets/jari.png",
-            width: 69.0,
-            height: 69.0,
-            fit: BoxFit.cover,
+          SvgPicture.asset(
+            "assets/emoi.svg",
+            width: 65.0,
+            height: 65.0,
+            //fit: BoxFit.cover,
           ),
         ],
       ),

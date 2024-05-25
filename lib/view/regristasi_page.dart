@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pendaftaran_ukm/controller/auth_controller.dart';
 import 'package:pendaftaran_ukm/view/login_page.dart';
 
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class RegristasiPage extends StatefulWidget {
@@ -64,10 +64,10 @@ class _RegristasiPageState extends State<RegristasiPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 70),
-          Image.asset(
-            "assets/jari.png",
-            width: 69.0,
-            height: 69.0,
+          SvgPicture.asset(
+            "assets/emoi.svg",
+            width: 65.0,
+            height: 65.0,
             fit: BoxFit.cover,
           ),
         ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pendaftaran_ukm/view/login_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 class SplashScreen extends StatefulWidget {
@@ -18,7 +17,7 @@ with SingleTickerProviderStateMixin{
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(Duration(seconds:2), () {
+    Future.delayed(const Duration(seconds:2), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const LoginPage(),));
     });
   }
@@ -34,7 +33,7 @@ with SingleTickerProviderStateMixin{
     return Scaffold(
    body: Container(
     width: double.infinity,
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
       gradient: LinearGradient(
         colors: [Colors.white, Colors.white],
         begin: Alignment.topRight,
@@ -54,7 +53,7 @@ with SingleTickerProviderStateMixin{
           width: 300.0, // Sesuaikan lebar gambar
           height: 300.0, // Sesuaikan tinggi gambar
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         //Text("Restaurant B.L", style:  GoogleFonts.montserrat(fontSize: screenWidth * 0.06, fontWeight: FontWeight.bold, color: Color.fromARGB(232, 241, 240, 240)  ),),
         
       ],

@@ -3,6 +3,8 @@ import 'package:pendaftaran_ukm/models/model_Ukm.dart';
 
 class UKMController extends GetxController {
   var daftarUKM = <UKMPendaftaran>[].obs;
+  var searchResults = <UKMPendaftaran>[].obs;
+  var searchTextController = ''.obs;
 
   @override
   void onInit() {
@@ -214,5 +216,13 @@ class UKMController extends GetxController {
       // Add other UKMPendaftaran objects...
     ];
     daftarUKM.assignAll(ukmList);
+    searchResults.assignAll(ukmList);
+  }
+  void searchUKM(String query) {
+    if (query.isEmpty) {
+      searchResults.assignAll(daftarUKM);
+    } else {
+      searchResults.assignAll(daftarUKM.where((ukm) => ukm.title.toLowerCase().contains(query.toLowerCase())).toList());
+    }
   }
 }

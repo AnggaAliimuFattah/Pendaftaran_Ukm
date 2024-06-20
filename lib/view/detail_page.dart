@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pendaftaran_ukm/models/model_Ukm.dart';
+import 'package:pendaftaran_ukm/view/form_input.dart';
 import 'package:pendaftaran_ukm/view/home_list.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -16,7 +18,7 @@ class DetailPage extends StatelessWidget {
       backgroundColor: const Color(0xff0B5EBF),
       appBar: AppBar(
         leading: IconButton(
-    icon: Icon(Icons.arrow_back_ios_new, color: Colors.white), // Icon panah kembali
+    icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white), // Icon panah kembali
     onPressed: () {
       Navigator.of(context).pop(); // Aksi untuk kembali ke layar sebelumnya
     },
@@ -70,9 +72,9 @@ class DetailPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.center,
-                        child: const Icon(
+                        child: Icon(
                           Icons.linear_scale,
                           size: 24.0,
                           color: Colors.black,
@@ -131,7 +133,7 @@ class DetailPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       _buildDetailSection(ukm.category),
                        const SizedBox(height: 100),
-                        _buildButton(),
+                        _buildButton(context),
 
                     ],
                   ),
@@ -149,14 +151,14 @@ class DetailPage extends StatelessWidget {
     width: 150, // Lebar kotak
     height: 50, // Tinggi kotak
     decoration: BoxDecoration(
-      color: Color(0xff0B5EBF), // Warna latar belakang kotak
+      color: const Color(0xff0B5EBF), // Warna latar belakang kotak
       borderRadius: BorderRadius.circular(10), // Mengatur sudut bulatan kotak
       boxShadow: [
         BoxShadow(
           color: Colors.grey.withOpacity(0.5), // Warna bayangan
           spreadRadius: 2, // Radius penyebaran bayangan
           blurRadius: 5, // Radius blur bayangan
-          offset: Offset(0, 3), // Offset bayangan dari kotak
+          offset: const Offset(0, 3), // Offset bayangan dari kotak
         ),
       ],
     ),
@@ -176,22 +178,25 @@ class DetailPage extends StatelessWidget {
   ),
   );
   }
-  Widget _buildButton() {
+  Widget _buildButton(BuildContext context) {
   return Container(
     width: double.infinity, // Mengambil lebar maksimum
-    padding: EdgeInsets.symmetric(horizontal: 20), // Padding horizontal
+    padding: const EdgeInsets.symmetric(horizontal: 20), // Padding horizontal
     child: ElevatedButton(
       onPressed: () {
-        // Aksi yang dilakukan ketika tombol ditekan
+       Navigator.push(
+       context,
+      MaterialPageRoute(builder: (context) => const InputDaftar()),
+      );
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xff0B5EBF), // Warna latar belakang tombol
+        backgroundColor: const Color(0xff0B5EBF), // Warna latar belakang tombol
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10), // Mengatur sudut bulatan tombol
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10), // Padding vertikal
+      child: const Padding(
+        padding: EdgeInsets.symmetric(vertical: 10), // Padding vertikal
         child: Text(
           'Daftar Sekarang',
           style: TextStyle(

@@ -179,7 +179,7 @@ class _SearchPageState extends State<SearchPage> {
           tabs: const [
             GButton(icon: Icons.home, text: 'Home',),
             GButton(icon: Icons.search, text: 'Search',),
-            GButton(icon: Icons.edit, text: 'Reviews',),
+            GButton(icon: Icons.edit, text: 'Daftar',),
            
           ],
       );

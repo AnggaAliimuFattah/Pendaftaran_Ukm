@@ -166,7 +166,7 @@ class _HomeListState extends State<HomeList> {
           tabs: const [
             GButton(icon: Icons.home, text: 'Home',),
             GButton(icon: Icons.search, text: 'Search',),
-            GButton(icon: Icons.edit, text: 'Reviews',),
+            GButton(icon: Icons.edit, text: 'daftar',),
            
           ],
       );

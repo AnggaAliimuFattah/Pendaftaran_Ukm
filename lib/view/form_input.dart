@@ -40,7 +40,8 @@ class _InputDaftarState extends State<InputDaftar> {
     context: context,
     builder: (BuildContext dialogContext) {
       return AlertDialog(
-        title: const Text('Edit Pendaftaran'),
+        backgroundColor: Colors.white,
+        title:  Text('Edit Pendaftaran',  style :GoogleFonts.montserrat(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold),),
         content: Form(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -69,9 +70,10 @@ class _InputDaftarState extends State<InputDaftar> {
                 ukMdaftarController.fetchUkmRegistrations(); // Refresh the list
                 Navigator.of(dialogContext).pop(); // Close dialog
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Pendaftaran berhasil diupdate'),
-                    duration: Duration(seconds: 2),
+                 SnackBar(
+                    backgroundColor: Colors.blue,
+                    content: Text('Pendaftaran berhasil diupdate', style:GoogleFonts.montserrat(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+                    duration: const Duration(seconds: 2),
                   ),
                 );
               }).catchError((error) {
@@ -142,7 +144,7 @@ class _InputDaftarState extends State<InputDaftar> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: nameController,
-                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                         decoration: const InputDecoration(
                           hintText: 'Nama',
                           hintStyle: TextStyle(
@@ -167,6 +169,7 @@ class _InputDaftarState extends State<InputDaftar> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: jurusanController,
+                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                         decoration: const InputDecoration(
                           hintText: 'Jurusan',
                           hintStyle: TextStyle(
@@ -191,6 +194,7 @@ class _InputDaftarState extends State<InputDaftar> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: ukmInputController,
+                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                         decoration: const InputDecoration(
                           hintText: 'UKM',
                           hintStyle: TextStyle(
@@ -215,6 +219,7 @@ class _InputDaftarState extends State<InputDaftar> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
                         controller: noTelponController,
+                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                         decoration: const InputDecoration(
                           hintText: 'No Telpon',
                           hintStyle: TextStyle(
@@ -245,6 +250,32 @@ class _InputDaftarState extends State<InputDaftar> {
                             noTelponController.text,
                           ).then((_) {
                             ukMdaftarController.fetchUkmRegistrations(); // Refresh the list
+                        showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: Colors.white,
+                            content: const Text('Selamat, Anda sudah daftar',
+                             style: TextStyle(color: Colors.blue, fontSize: 20, fontWeight: FontWeight.bold)
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text(
+                                  'Kembali',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: const Color(0xff0B5EBF),
+                                  minimumSize: Size(screenWidth * 0.8, 50),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                           });
                         }
                       },
@@ -281,13 +312,13 @@ class _InputDaftarState extends State<InputDaftar> {
                             itemBuilder: (context, index) {
                               final ukm = ukMdaftarController.ukmList[index];
                               return ListTile(
-                                title: Text(ukm.namaLengkap),
+                                title: Text(ukm.namaLengkap, style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 18)),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(ukm.jurusan),
-                                    Text(ukm.unitKegiatan),
-                                    Text(ukm.nomorHp),
+                                    Text(ukm.jurusan,style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, color: Colors.blue, fontSize: 14)),
+                                    Text(ukm.unitKegiatan,style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 18)),
+                                    Text(ukm.nomorHp,style: GoogleFonts.montserrat(fontWeight: FontWeight.w400, color: Colors.blue, fontSize: 14)),
                                   ],
                                 ),
                                 trailing: Row(
@@ -306,8 +337,9 @@ class _InputDaftarState extends State<InputDaftar> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: const Text('Hapus Pendaftaran'),
-                                              content: const Text('Apakah Anda yakin ingin menghapus data pendaftaran ini?'),
+                                              backgroundColor: Colors.white,
+                                              title:  Text('Hapus Pendaftaran', style: GoogleFonts.montserrat(color: Colors.blue, fontSize: 24, fontWeight: FontWeight.bold),),
+                                              content: Text('Apakah ingin menghapus data ini?', style: GoogleFonts.montserrat(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.bold)),
                                               actions: <Widget>[
                                                 TextButton(
                                                   child: const Text('Batal'),
@@ -323,8 +355,9 @@ class _InputDaftarState extends State<InputDaftar> {
                                                         ukMdaftarController.fetchUkmRegistrations(); // Refresh the list
                                                         Navigator.of(context).pop(); // Close dialog
                                                         ScaffoldMessenger.of(context).showSnackBar(
-                                                            const SnackBar(
-                                                              content: Text('Pendaftaran berhasil dihapus'),
+                                                           SnackBar(
+                                                               backgroundColor: Colors.blue,
+                                                              content: Text('Pendaftaran berhasil dihapus',  style:GoogleFonts.montserrat(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
                                                               duration: Duration(seconds: 2),
                                                             ),
                                                           );
